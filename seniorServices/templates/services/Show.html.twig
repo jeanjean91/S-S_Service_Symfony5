@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <h1 class="my-4">Detail et condition d'un service
+            {#<small>Secondary Text</small>#}
+        </h1>
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            {#<div class="col-md-8">
+                <img class="#}{#img-fluid" src="http://placehold.it/750x500#}{#" alt="">
+            </div>
+#}
+            <div class="col-md-4">
+                <h3 class="my-3">Description du service</h3>
+
+
+
+                <ul>
+                    <li><span style="font-weight : bolder;font-size: 16px;">Nom service:</span>{{ service.titre}}</li>
+                    <li><span style="font-weight : bolder;font-size: 16px;">Description:</span>{{service.description}}</li>
+                    <li><span style="font-weight : bolder;font-size: 16px;">Categorie de service:</span>{{ service.categorys.nomCat}}</li>
+                    <li><span style="font-weight : bolder;font-size: 16px;">Prix de la prestation  par heure:</span>{{ service.prixTtc}}eur</li>
+                </ul>
+                <h3 class="my-3">Conditions</h3>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+
+
+                <!-- Button trigger modal -->
+                <button  style="margin-top: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Reservation
+                </button>
+            </div>
+
+
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+        <h3 class="my-4">Services associers</h3>
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Reservation </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Pour reserver un service vous alleZ devoir remplire le formullaire
+                        vous dvez creer un compte si vous ête pas membre
+                    </div>
+                    <div class="modal-footer">
+                        {#<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+                        <a href="{{ path('reservation.reserver' , {'id': service.id}) }}" ><button  class="btn btn-primary">Reserver</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
