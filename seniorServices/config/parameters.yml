@@ -1,0 +1,4 @@
+# app/config/parameters.yml
+parameters:
+  Cat: Cat
+   id: id

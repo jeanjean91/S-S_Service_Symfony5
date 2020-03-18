@@ -1,0 +1,51 @@
+{% extends 'baseAdmin.html.twig' %}
+{% form_theme PrestataireFormType 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+    <div class="container-fluid mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4" style="text-align: center;"> Modifier le produit</h1>
+        </div>
+        {{ form_start() }}
+        <div class="row">
+            <div class="col-md-2">
+                {{ form_row(PrestataireFormType.cv, {'attr': {'placeholder': "cv"}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(PrestataireFormType.pieceIdentite, {'attr': {'placeholder' :"piece D'identite"}})  }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                {{ form_row(PrestataireFormType.numSecuSocial, {'attr': {'placeholder': "Titre du produit"}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                {{ form_row(PrestataireFormType.societe) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(PrestataireFormType.adresse) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(PrestataireFormType.tel) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(fPrestataireFormType.siret ) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                {{ form_row(fPrestataireFormType.rib ) }}
+            </div>
+        </div>
+        {{ form_widget(PrestataireFormType) }}
+        <button class="btn btn-success" type="submit">
+            Eregistrer les modifications !
+        </button>
+        {{ form_end(formProduit) }}
+
+    </div>
+{% endblock %}

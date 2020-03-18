@@ -1,0 +1,4 @@
+# app/config/config.yml
+twig:
+    globals:
+        Cat: "%Cat",id: "%id"
