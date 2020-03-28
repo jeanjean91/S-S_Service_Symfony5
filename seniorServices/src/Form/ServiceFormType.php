@@ -17,6 +17,7 @@ class ServiceFormType extends AbstractType
             ->add('pays')
             ->add('ville')
             ->add('region')
+            ->add('categorys')
         ;
     }
 

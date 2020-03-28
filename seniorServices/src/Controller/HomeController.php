@@ -9,7 +9,9 @@ use App\Repository\ServicesRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\CategorieRepository;
+use App\Controller\CategorysRepository;
+use Psr\SimpleCache\CacheInterface;
+use Pusher\Pusher;
 use Knp\Component\Pager\PaginatorInterface;
 
 class HomeController extends AbstractController
@@ -19,10 +21,59 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        /*$visitorCount = $this->getVisitorCount();
+        return $this->render('index.html.twig', [
+            'pusherKey' => $this->getParameter('pusherKey'),
+            'pusherCluster' => $this->getParameter('pusherCluster'),
+            'visitorCount' => $visitorCount,
+        ]);*/
+
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
+
+  /*  public function __construct(CacheInterface $cache)
+    {
+        $this->cache = $cache;
+    }*/
+
+
+
+
+  /*  public function webhook(Request $request, Pusher $pusher)
+    {
+        $events = json_decode($request->getContent(), true)['events'];
+        $visitorCount = $this->getVisitorCount();
+        foreach ($events as $event) {
+            // ignore any events from our public channel--it's only for broadcasting
+            if ($event['channel'] === 'visitor-updates') {
+                continue;
+            }
+            $visitorCount += ($event['name'] === 'channel_occupied') ? 1 : -1;
+        }
+        // save new figure and notify all clients
+        $this->saveVisitorCount($visitorCount);
+        $pusher->trigger('visitor-updates', 'update', [
+            'newCount' => $visitorCount,
+        ]);
+        return new Response();
+    }
+
+    private function getVisitorCount()
+    {
+        return $this->cache->get('visitorCount') ?: 0;
+    }
+
+    private function saveVisitorCount($visitorCount)
+    {
+        $this->cache->set('visitorCount', $visitorCount);
+    }*/
+
+
+
+
 
     //afficher une categorie
 

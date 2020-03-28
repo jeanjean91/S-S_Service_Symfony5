@@ -75,6 +75,9 @@
     "doctrine/reflection": {
         "version": "v1.1.0"
     },
+    "egulias/email-validator": {
+        "version": "2.1.17"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -84,6 +87,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.1.1"
     },
+    "laupifrpar/pusher-bundle": {
+        "version": "4.0.0"
+    },
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
@@ -92,6 +98,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
+    },
+    "paragonie/sodium_compat": {
+        "version": "v1.12.2"
     },
     "php": {
         "version": "7.3"
@@ -108,6 +117,18 @@
     "psr/log": {
         "version": "1.1.2"
     },
+    "pusher/pusher-php-server": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "8dd3ea817217453e14ab596317177465211e01d2"
+        },
+        "files": [
+            "config/packages/pusher_php_server.yaml"
+        ]
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -119,6 +140,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.2.3"
     },
     "symfony/asset": {
         "version": "v5.0.5"
@@ -298,6 +322,20 @@
     },
     "symfony/stopwatch": {
         "version": "v5.0.5"
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "ae4d22af30bbd484506bc1817c5a3ef72c855b93"
+        },
+        "files": [
+            "config/packages/dev/swiftmailer.yaml",
+            "config/packages/swiftmailer.yaml",
+            "config/packages/test/swiftmailer.yaml"
+        ]
     },
     "symfony/translation": {
         "version": "3.3",

@@ -7,6 +7,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\CategorysRepository;
+use App\Entity\Categorys;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,16 +41,23 @@ class ServicesController extends AbstractController
 
 
 
-    //afficher deatil du produit
+    //afficher deatil du servicet
     /**
      * @Route("/services-Show-{id}", name="services.Show")
      */
-    public function show($id, ServicesRepository $repository)
+    public function show($id, ServicesRepository $repository,\App\Repository\CategorysRepository $categorieRepository )
     {
         $service = $repository->findOneBy(['id' => $id]);
+        /*$Cat = $categorieRepository-> findCatFirstLevel();*/
+       /* $cat=$service->getCategorys();*/
+       /* dump($id);*/
+      /* $service->setCategorys($Cat);*/
+
         return $this->render('services/Show.html.twig', [
             'service' => $service
         ]);
+
+        dump($service );
     }
 
 }

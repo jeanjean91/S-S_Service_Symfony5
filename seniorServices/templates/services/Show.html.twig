@@ -25,7 +25,7 @@
                 <ul>
                     <li><span style="font-weight : bolder;font-size: 16px;">Nom service:</span>{{ service.titre}}</li>
                     <li><span style="font-weight : bolder;font-size: 16px;">Description:</span>{{service.description}}</li>
-                    <li><span style="font-weight : bolder;font-size: 16px;">Categorie de service:</span>{{ service.categorys.nomCat}}</li>
+{#                    <li><span style="font-weight : bolder;font-size: 16px;">Categorie de service:</span>{{ service.categorys}}</li>#}
                     <li><span style="font-weight : bolder;font-size: 16px;">Prix de la prestation  par heure:</span>{{ service.prixTtc}}eur</li>
                 </ul>
                 <h3 class="my-3">Conditions</h3>
@@ -92,8 +92,8 @@
                         vous dvez creer un compte si vous ête pas membre
                     </div>
                     <div class="modal-footer">
-                        {#<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
-                        <a href="{{ path('reservation.reserver' , {'id': service.id}) }}" ><button  class="btn btn-primary">Reserver</button></a>
+                        <a href="{{ path("reservation.reserver" , {'id': service.id}) }}"><button  class="btn btn-secondary" {#data-dismiss="modal"#}>Reserver</button></a>
+                        <a href="{{ path("panier.affiche",{'id': service.id }) }}"><button  class="btn btn-primary">ajouter au panier</button></a>
                     </div>
                 </div>
             </div>

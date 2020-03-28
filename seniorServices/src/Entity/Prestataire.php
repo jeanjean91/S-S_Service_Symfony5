@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PrestataireRepository")
  */
@@ -39,14 +40,17 @@ class Prestataire extends User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     private $tel;
 
+
+
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="prestataire", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     *
      */
-    private $User;
+    private $user;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -79,13 +83,34 @@ class Prestataire extends User
 
     public function __construct()
     {
-        $this->User = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    public function setUser(?string $user): User
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
 
     public function getSociete(): ?string
     {
@@ -111,34 +136,36 @@ class Prestataire extends User
         return $this;
     }
 
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(?string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
 
     public function getTel(): ?string
     {
         return $this->tel;
     }
 
-    public function setTel(?string $tel): self
+    public function setTel(?string $tel): User
     {
         $this->tel = $tel;
 
         return $this;
     }
 
-    /**
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): User
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+
+    /*
      * @return Collection|User[]
      */
-    public function getUser(): string
+    /*public function getUser(): string
     {
         return $this->User;
     }
@@ -164,7 +191,7 @@ class Prestataire extends User
         }
 
         return $this;
-    }
+    }*/
 
     public function getPieceIdentite(): ?string
     {

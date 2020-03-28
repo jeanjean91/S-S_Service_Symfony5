@@ -55,9 +55,9 @@ class Detail
         return $this->service;
     }
 
-    public function setService(?Service $service): self
+    public function setService(): self
     {
-        $this->service = $service;
+        $this->service ;
 
         return $this;
     }

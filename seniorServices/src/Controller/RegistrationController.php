@@ -21,17 +21,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 
 
 class RegistrationController extends AbstractController
 {
+
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -40,6 +43,18 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
 
+            /* $image = $form->get('image')->getData();
+
+             $imageName = md5(uniqid()).'.'.$image->guessExtension();
+
+             $user->setImage($imageName);
+
+             $image->move(
+                 $this->getParameter('image_directory'), $imageName);
+             $user->setImage($imageName);*/
+            /*
+                        dump($image);*/
+            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -50,8 +65,51 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('success', " Bravo votre compte a ete creer!");
 
+
+            if ($request->isMethod('POST')) {
+
+                $email =  $form->get('email')->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
+
+                if ($user === null) {
+                    $this->addFlash('danger', 'Email Inconnu, recommence !');
+                    return $this->redirectToRoute('app_');
+                }
+                $token = $tokenGenerator->generateToken();
+
+                try {
+                    /* $user->setToken($token);*/
+                    $entityManager->flush();
+                } catch (\Exception $e) {
+                    $this->addFlash('warning', $e->getMessage());
+                    return $this->redirectToRoute('home');
+                }
+
+                $url = $this->generateUrl('app_login', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+                $message = (new \Swift_Message('Confirmation email'))
+                    ->setFrom(array('jeandesir84@gmail.com' => 'Senior Services'))
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'security/emails/confirmation.html.twig',
+                            [
+                                'user' => $user,
+                                'url' => $url
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $mailer->send($message);
+
+                $this->addFlash('success', 'Bravo! Votre compte à bien été, un email de confirmation vous a été envoyer  allerz confimer votre adress email!');
+
+                return $this->redirectToRoute('home');
+
+            }
             // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
@@ -62,11 +120,11 @@ class RegistrationController extends AbstractController
             );
         }
 
-
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
 
 
     /**
@@ -74,13 +132,22 @@ class RegistrationController extends AbstractController
      */
 
 
-    public function  new($id, UserRepository $repository,Request $request, ObjectManager $manager/*,EntityManagerInterface $manager*/)
+    public function  new($id, UserRepository $repository,Request $request, ObjectManager $manager)
     {
-       /* $user = $repository->findOneBy(['id' => $id]);*/
-       $user = $this->getUser();
-      dump($user);
+
+       $user = $repository->findOneBy(['id' => $id]);
+
+       $appUser = $user->getUser();
+        $email = $user->getEmail();
+        $id1= $this->getUser();
+        $password=$user->getPassword();
         $prestataire = new Prestataire();
-        $prestataire->setUser($id);
+
+        $prestataire->setUser($appUser);
+        $prestataire->setPassword($password);
+        $prestataire->setEmail($email);
+
+        dump($password);
         $form = $this->createForm(PrestataireFormtype::class,  $prestataire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,7 +158,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute("home");
 
 
-            return $this->redirectToRoute('home', ['id' => $user->getUser()]);//, ['id' => $produit->getId()]);
+           /* return $this->redirectToRoute('home', ['id' => $user->getUser()]);*///, ['id' => $produit->getId()]);
         }
         return $this->render('registration/prestaRegister.html.twig', [
 

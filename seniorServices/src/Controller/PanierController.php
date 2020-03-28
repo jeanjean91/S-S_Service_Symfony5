@@ -42,8 +42,9 @@ class PanierController extends AbstractController
         {
             $detail = new Detail();
             $service = $repository->findOneBy( ['id' => $key] );
+            $idService =$service->getId();
             $detail->setCommande($commande);
-            $detail->setProduit($service);
+            $detail->setService($idService);
             $detail->setQte($value);
             $details[] = $detail;
         }

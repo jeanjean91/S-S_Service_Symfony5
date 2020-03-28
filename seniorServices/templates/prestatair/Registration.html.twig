@@ -19,6 +19,7 @@
         </div>
         <div class="row">
             <div class="col-md-2">
+
                 {{ form_row(PrestataireFormType.numSecuSocial, {'attr': {'placeholder': "Titre du produit"}}) }}
             </div>
         </div>
@@ -29,9 +30,9 @@
             <div class="col-md-3">
                 {{ form_row(PrestataireFormType.adresse) }}
             </div>
-            <div class="col-md-3">
+          {#  <div class="col-md-3">
                 {{ form_row(PrestataireFormType.tel) }}
-            </div>
+            </div>#}
             <div class="col-md-3">
                 {{ form_row(fPrestataireFormType.siret ) }}
             </div>
@@ -48,4 +49,42 @@
         {{ form_end(formProduit) }}
 
     </div>
+
+    <script type="text/javascript">
+
+        /* Cette fonction teste un controle et s'il s'agit d'un No de sécurité sociale il retourne la valeur vrai, autrement
+     * on retourne la valeur faux
+    */
+        function checkss(qnumss)
+        {
+// qnumss est un controle type input type=text, qnumss.value en est le contenu
+// traitement cas de la Corse on rend la zone a tester numérique
+            var enumss = qnumss.value;
+            var s7=enumss.substring(6,7)
+            if ((s7 == "A") ||(s7 == "B"))
+                enumss=enumss.substring(0,6)+ "0" + enumss.substring(7,15);
+// La zone doit alors etre numérique et ne contenir que 15 digits on valide par expression régulière
+            var filter=/^\d{15}$/;
+            if (!filter.test(enumss))
+                return false
+            else
+// la zone est numérique avec 15 caractères
+            {
+                if ((enumss.substring(0,1) != "1") && (enumss.substring(0,1) != "2") ) return false;
+                var deb13=parseInt(enumss.substring(0,13));
+// traiter le cas de la corse
+                if (s7 == "A") deb13-=1000000;
+                if (s7 == "B") deb13-=2000000;
+// La Clé SS est égale au reste de la division par 97
+                var div97=97 - (deb13%97);
+                var sdiv97=String(div97);
+
+                if (enumss.substring(13,15) != sdiv97)
+                {
+                    alert("Clé Sécurité Sociale incorrecte devrait etre " + sdiv97);
+                    return false;
+                }
+            }
+            return true;}
+    </script>
 {% endblock %}

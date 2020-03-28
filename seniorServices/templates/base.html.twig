@@ -95,7 +95,7 @@
                         <div class="header_search_content">
                             <div class="header_search_form_container">
                                 <form action="#" class="header_search_form clearfix">
-                                    <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+                                    <input type="search" required="required" class="header_search_input" placeholder="Rechercher un service...">
                                     <div class="custom_dropdown">
                                         <div class="custom_dropdown_list">
                                             <span class="custom_dropdown_placeholder clc">All Categories</span>
@@ -103,12 +103,12 @@
                                             <ul class="custom_list clc">
 
 
-                                                <li><a class="clc" href="#"></a></li>
+                                                {#<li><a class="clc" href="#"></a></li>
                                                 <li><a class="clc" href="#">Computers</a></li>
                                                 <li><a class="clc" href="#">Laptops</a></li>
                                                 <li><a class="clc" href="#">Cameras</a></li>
                                                 <li><a class="clc" href="#">Hardware</a></li>
-                                                <li><a class="clc" href="#">Smartphones</a></li>
+                                                <li><a class="clc" href="#">Smartphones</a></li>#}
                                             </ul>
                                         </div>
                                     </div>
@@ -155,8 +155,8 @@
                                     <div class="cart_count"><span>10</span></div>
                                 </div>
                                 <div class="cart_content">
-                                    <div class="cart_text"><a href="#">Cart</a></div>
-                                    <div class="cart_price">$85</div>
+                                    <div class="cart_text"><a href="#">Panier</a></div>
+                                    <div class="cart_price">85EUR</div>
                                 </div>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                             <ul class="standard_dropdown main_nav_dropdown">
                                 <li><a href="{{ path("home") }}">Home<i class="fas fa-chevron-down"></i></a></li>
                                 <li class="hassubs">
-                                    <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+                                    <a href="#">liste maison retraite<i class="fas fa-chevron-down"></i></a>
                                     <ul>
                                         <li>
                                             <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
@@ -246,7 +246,7 @@
                                     </ul>
                                 </li>
                                 <li class="hassubs">
-                                    <a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
+                                    <a href="#">Services handicapé<i class="fas fa-chevron-down"></i></a>
                                     <ul>
                                         <li>
                                             <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
@@ -390,11 +390,19 @@
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
             {% if ( label == 'success' ) %}
-                <div class="alert alert-success alert-dismissible fade show">
+
+                <div id="alert" class="alert alert-success alert-dismissible fade show" style="width: 94vw;margin-left: 55px;text-align: center;font-weight: bolder;font-size: 14px">
+                    <button type="button" class="close" data-dismiss="alert-success " aria-label="Close">
+                        <span id="close" aria-hidden="true">&times;</span>
+                    </button>
                     {{ flash }}
                 </div>
             {% elseif ( label == 'error' ) %}
+
                 <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     {{ flash }}
                 </div>
             {% endif %}
@@ -541,6 +549,18 @@
             <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
             <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
             <script src="plugins/parallax-js-master/parallax.min.js"></script>
+           <script>
+
+               $(document).ready(function(){
+
+                   $("#close").click(function(){
+                       $(".alert-success").hide();
+                   });
+
+
+               });
+           </script>
+
             <script src="plugins/easing/easing.js"></script>
             <script src="assets/js/blog_single_custom.js"></script>
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

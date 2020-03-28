@@ -55,6 +55,42 @@ class CommandeController extends AbstractController
 
     }
 
+    /**
+     * @Route("/commande", name="commande")
+     */
+
+    public function commander(Request $request,ObjectManager $manager,ServicesRepository $repository)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $session = $request->getSession();
+
+        $panier = $session->get('panier');
+
+        $client = $this->getUser();
+        $commande = new Commande();
+        $commande->setClient($client);
+        $commande->setDate(new \DateTime());
+        $details = [];
+        foreach ($panier as $key => $value) {
+            $detail = new Detail();
+            $produit = $repository->findOneById($key);
+            $detail->setCommande($commande);
+            $detail->setProduit($produit);
+            $detail->setQcom($value);
+            //$manager->persist($commande);
+            $manager->persist($detail);
+            $manager->flush();
+            $details[] = $detail;
+        }
+        //$session->remove('panier');
+        dump($panier);
+        $session->getFlashBag()->add('success', 'Article ajouté avec succès');
+        return $this->render('commande/edit.html.twig', [
+            'details' => $details,
+        ]);
+
+    }
+
 
 
     /**

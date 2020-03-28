@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Prestataire;
 use Symfony\Component\Form\AbstractType;
 
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -55,7 +57,7 @@ class PrestataireFormType extends AbstractType
             ->add('cv')
             ->add('numSecuSocial')
             ->add('rib')
-            /*->add('prestataire')*/;
+            ->add('password',  PasswordType::class);
     }
 
       /*  ->add('prestataire', TextType::class);

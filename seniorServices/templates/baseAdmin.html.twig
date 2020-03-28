@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
@@ -189,7 +190,7 @@
                 <div class="info">
                     <a href="#" class="d-block">{% if app.user %}
 
-                            <p>  {{ app.user.email }}</p>
+                            <p>  {{ app.user.user }}</p>
                         {% else %}
                             USER NAME
                         {% endif %}</a>
@@ -211,57 +212,57 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link active">
+                                <a href="{{ path('admin') }}" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v1</p>
+                                    <p>Home dashboard</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./index2.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v2</p>
+                                    <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="./index3.html" class="nav-link">
+                            {#<li class="nav-item">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Dashboard v3</p>
                                 </a>
-                            </li>
+                            </li>#}
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
+                                STATISTIC
+                                <span class="right badge badge-danger"></span>
                             </p>
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-copy"></i>
+                            <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Layout Options
+                                USERS
                                 <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">6</span>
+                                <span class="right badge badge-success">7 New</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="{{ path('admin.user') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Top Navigation</p>
+                                    <p>All User</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="{{ path('admin.prestataire') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Top Navigation + Sidebar</p>
+                                    <p>Prestataire</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {#<li class="nav-item">
                                 <a href="pages/layout/boxed.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Boxed</p>
@@ -272,78 +273,61 @@
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Fixed Sidebar</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Fixed Navbar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Fixed Footer</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Collapsed Sidebar</p>
-                                </a>
-                            </li>
+                            </li>#}
+
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <i class="nav-icon fas fa-folder-open"></i>
                             <p>
-                                Charts
+                                SERVICES
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
+                                <a href="{{ path("admin.services") }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>ChartJS</p>
+                                    <p>All Service</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
+                                <a href="{{ path("admin.addService") }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Flot</p>
+                                    <p>Add Service</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/inline.html" class="nav-link">
+                                <a href="" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Inline</p>
+                                    <p>I</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tree"></i>
+                            <i class="nav-icon fas fa-align-justify"></i>
                             <p>
-                                UI Elements
+                                CATEGORIE
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/UI/general.html" class="nav-link">
+                                <a href="{{ path('admin.categorie') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>General</p>
+                                    <p>All Categories</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link">
+                                <a href="{{ path('admin.addCategorie') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Icons</p>
+                                    <p>Add Categories</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                           {# <li class="nav-item">
                                 <a href="pages/UI/buttons.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Buttons</p>
@@ -378,7 +362,7 @@
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Ribbons</p>
                                 </a>
-                            </li>
+                            </li>#}
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">
@@ -739,12 +723,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
+                        <h1 class="m-0 text-dark">AdminiStration </h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+                            <li class="breadcrumb-item active">Admin</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -808,6 +792,25 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+
+
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
 {% endblock %}
 </body>
 </html>

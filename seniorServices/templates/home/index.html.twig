@@ -13,7 +13,9 @@
                     <div class="col-lg-5 offset-lg-4 fill_height">
                         <div class="banner_content" >
                             <h1 class="banner_text" style="margin-top: -450px;color:#00475b;">Trouver un services à la personne!</h1>
-
+                            {#<h2 align="center" id="visitorCount">{{ visitorCount }}</h2>
+                            <p align="center">person(s) currently viewing this page</p>
+#}
                             <div class="button banner_button" style="margin-top: 10px;margin-left: 170px;"><a href="{{ path("prestatair.dashboard") }}">mon espace pro</a></div>
                         </div>
                     </div>
@@ -89,6 +91,22 @@
         </div>
     </div>
 
+    {% block javascripts %}
+       {# <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+        <script>
 
+            let pusher = new Pusher("{{ pusherKey }}", {
+                cluster: "{{ pusherCluster }}",
+            });
+            let channelName = Date.now() + Math.random().toString(36).replace(/\W+/g, '');
+            pusher.subscribe(channelName);
+            pusher.subscribe("visitor-updates")
+                .bind('update', function (data) {
+                    console.log(data)
+                    let newCount = data.newCount;
+                    document.getElementById('visitorCount').textContent = newCount;
+                });
+        </script>#}
+    {% endblock %}
 
 {% endblock %}

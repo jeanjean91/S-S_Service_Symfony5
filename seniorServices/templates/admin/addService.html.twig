@@ -1,0 +1,45 @@
+{% extends 'baseAdmin.html.twig' %}
+{% form_theme ServiceFormType 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+    <div class="container-fluid mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4" style="text-align: center;">Ajouter un service</h1>
+        </div>
+        {{ form_start(ServiceFormType ) }}
+
+        <div class="row" style="max-width: 80vw;margin-left: 150px">
+            <div class="col-md-4">
+                {{ form_row(ServiceFormType.titre, {'attr': {'placeholder' :"Titre"}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(ServiceFormType.description, {'attr': {'placeholder' :"description"}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row( ServiceFormType.pays, {'attr': {'placeholder' :"Pays"}})}}
+            </div>
+
+        </div>
+        <div class="row" style="max-width: 80vw;margin-left: 150px">
+            <div class="col-md-12">
+                {{ form_row(ServiceFormType.ville, {'attr': {'placeholder' :"Ville"}})  }}
+            </div>
+        </div>
+        <div class="row" style="max-width: 80vw;margin-left: 150px">
+            <div class="col-md-12">
+                {{ form_row(ServiceFormType.region, {'attr': {'placeholder' :"Region"}}) }}
+            </div>
+        </div>
+        <div class="row" style="max-width: 80vw;margin-left: 150px">
+            <div class="col-md-12">
+                {{ form_row(ServiceFormType.categorys, {'attr': {'placeholder' :"Region"}}) }}
+            </div>
+        </div>
+
+        <button  style=" width:190px;margin-left: 550px;margin-top: 50px;margin-bottom: 50px" class="btn btn-success" type="submit">
+            valider
+        </button>
+        {{ form_end(ServiceFormType) }}
+
+    </div>
+{% endblock %}

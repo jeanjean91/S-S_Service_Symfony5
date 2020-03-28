@@ -82,9 +82,11 @@ class Categorys
         return $this;
     }
 
+
     /**
      * @return Collection|Services[]
      */
+
     public function getService(): Collection
     {
         return $this->service;
@@ -113,6 +115,11 @@ class Categorys
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->sousCategory;
+    }
+
     public function getSousCategory(): ?self
     {
         return $this->sousCategory;
@@ -128,6 +135,11 @@ class Categorys
     /**
      * @return Collection|self[]
      */
+    /*public function __toString()
+    {
+        return $this->categorys;
+    }*/
+
     public function getCategorys(): Collection
     {
         return $this->categorys;

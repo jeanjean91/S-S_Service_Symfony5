@@ -19,11 +19,13 @@ class Reservation
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Services", inversedBy="reservation", cascade={"persist", "remove"})
      *
+     *
      */
     private $service;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
+     *
      */
     private $User;
 
@@ -51,15 +53,18 @@ class Reservation
     {
         return $this->id;
     }
+    public function __toString() {
+        return $this->service;
+    }
 
     public function getService(): ?Services
     {
         return $this->service;
     }
 
-    public function setService(?Services $service): self
+    public function setService(): self
     {
-        $this->service = $service;
+        $this->service ;
 
         return $this;
     }

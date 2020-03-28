@@ -1,0 +1,98 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="contenue">
+
+            <div class="row" id="main" >
+                <div class="col-sm-12 col-md-12 well" id="content">
+                    <h1 style="text-align: center;margin-top: 20px;margin-bottom: 20px;">Liste des Categories </h1>
+                </div>
+            </div>
+
+          <br>
+            <div class="example raper">
+
+
+                <table class="table table-striped">
+
+                    <tr>
+                        <th>Id</th>
+                        <th>Categorie </th>
+                        <th>Sous Categorie</th>
+                        <th>Description</th>
+
+                        <th>Niveau</th>
+                        <th>Up Date</th>
+                        <th>Delete</th>
+                        {%  for cat in cat %}
+
+
+                    <tr>
+
+                        <td>{{ cat.id}}</td>
+                        <td>{{ cat.nomCat}}</td>
+
+                        <td>{% for Cats in cat.sousCategory %}
+                            {{  Cats }} {% endfor %}</td>
+
+                        <td>{{cat.description}}</td>
+
+                        <td>{{ cat.niveau}}</td>
+
+
+
+
+
+
+                        <td> <a href="" ><button class="tag tag-succes" type="submit"><i class="far fa-edit"></i></button> </a></td>
+
+                        <td> <button class="btn btn-danger"  data-toggle="modal" data-target="#exampleModal"><i class="far fa-trash-alt"></i></button> </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+
+                <div  style="margin-left: 350px;margin-top: 70px;">
+                    <div class="row mt-30">
+                        <div class="col">
+
+                            {{ knp_pagination_render( cat) }}
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #9e1a1a"><i class="fas fa-exclamation-triangle"> Attention !!</i></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Vous êtes entrain d'éffacer une catégorie, cette action est définitive! Etes vous sure de vouloire éffacer définitivement cette catégorie?
+                    </div>
+                    <div class="modal-footer">
+                       {# <a href="{{ path("reservation.reserver" , {'id': service.id}) }}"><button  class="btn btn-secondary" #}{#data-dismiss="modal"#}{#>Reserver</button></a>#}
+                        <a href="{#{{ path("panier.affiche",{'id': service.id }) }}#}"><button  class="btn btn-primary">éfacer</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
