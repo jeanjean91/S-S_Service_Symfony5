@@ -392,9 +392,14 @@
             {% if ( label == 'success' ) %}
 
                 <div id="alert" class="alert alert-success alert-dismissible fade show" style="width: 94vw;margin-left: 55px;text-align: center;font-weight: bolder;font-size: 14px">
-                    <button type="button" class="close" data-dismiss="alert-success " aria-label="Close">
+                    {# <button type="button" class="close" data-dismiss="alert-success " aria-label="Close">
+                    
                         <span id="close" aria-hidden="true">&times;</span>
-                    </button>
+                         <button type="button" class="close" data-dismiss="alert">×</button>
+                    </button> #}
+<button type="button" id="close" class="close" data-dismiss="alert" onclick='hide("#alert")'>×</button>
+
+
                     {{ flash }}
                 </div>
             {% elseif ( label == 'error' ) %}
@@ -554,7 +559,7 @@
                $(document).ready(function(){
 
                    $("#close").click(function(){
-                       $(".alert-success").hide();
+                       $("#alert").hide();
                    });
 
 

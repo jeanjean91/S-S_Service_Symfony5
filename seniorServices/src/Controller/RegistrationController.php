@@ -135,19 +135,16 @@ class RegistrationController extends AbstractController
     public function  new($id, UserRepository $repository,Request $request, ObjectManager $manager)
     {
 
-       $user = $repository->findOneBy(['id' => $id]);
+        $appUser =  $this->getUser();
 
-       $appUser = $user->getUser();
-        $email = $user->getEmail();
-        $id1= $this->getUser();
-        $password=$user->getPassword();
+
+/*
+        $id1= $this->getUser();*/
+
         $prestataire = new Prestataire();
 
         $prestataire->setUser($appUser);
-        $prestataire->setPassword($password);
-        $prestataire->setEmail($email);
 
-        dump($password);
         $form = $this->createForm(PrestataireFormtype::class,  $prestataire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -158,7 +155,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute("home");
 
 
-           /* return $this->redirectToRoute('home', ['id' => $user->getUser()]);*///, ['id' => $produit->getId()]);
+
         }
         return $this->render('registration/prestaRegister.html.twig', [
 

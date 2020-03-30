@@ -47,8 +47,9 @@ class PrestataireFormType extends AbstractType
                 ]
             ])
             ->add('specialite')
-            ->add('email')
+            /*->add('email')*/
             ->add('user')
+
             ->add('societe')
             ->add('siret')
             ->add('adresse')
@@ -56,20 +57,10 @@ class PrestataireFormType extends AbstractType
             ->add('pieceIdentite')
             ->add('cv')
             ->add('numSecuSocial')
-            ->add('rib')
-            ->add('password',  PasswordType::class);
+            ->add('rib');
+            /*->add('password',  PasswordType::class);*/
     }
 
-      /*  ->add('prestataire', TextType::class);
-        $builder->get('prestataire')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($prestataireArray) {
-                    // transform the array to a string
-                    return implode(', ', $prestataireArray);
-
-    }
-            ));
-    }*/
 
     public function configureOptions(OptionsResolver $resolver)
     {

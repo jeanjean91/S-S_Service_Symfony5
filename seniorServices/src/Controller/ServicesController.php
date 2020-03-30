@@ -14,7 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 class ServicesController extends AbstractController
 {
     /**
-     * @Route("/services-service", name="services.service")
+     * @Route("/services-service.{format}", name="services.service",requirements={
+     *
+     *   "format" = "html|xml"
+     * }, defaults={"format" = "html"})))
      */
 
 
@@ -43,7 +46,10 @@ class ServicesController extends AbstractController
 
     //afficher deatil du servicet
     /**
-     * @Route("/services-Show-{id}", name="services.Show")
+     * @Route("/services-Show-{id}.{format}", name="services.Show",requirements={
+     *
+     *   "format" = "html|xml"
+     * }, defaults={"format" = "html"}))
      */
     public function show($id, ServicesRepository $repository,\App\Repository\CategorysRepository $categorieRepository )
     {

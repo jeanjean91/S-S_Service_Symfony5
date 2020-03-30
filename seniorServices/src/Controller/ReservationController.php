@@ -6,9 +6,11 @@ use App\Entity\Reservation;
 use App\Entity\Services;
 use App\Entity\User;
 use App\Form\ReservationType;
+use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
 use App\Repository\ServicesRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +24,18 @@ class ReservationController extends AbstractController
     public function  new($id, ServicesRepository $repository ,Request $request, ObjectManager $manager,\Swift_Mailer $mailer)
     {
         $service = $repository->findOneBy(['id' => $id]);
-        $idService =$service->getId();
 
+        $titreService = $service->getTitre();
+       /* dump( $titreService);*/
 
         $user = $this ->getUser();
         $reservation = new Reservation();
 
+
         $reservation->setUser($user);
-        $reservation->setService($idService);
-      /* dump($service);*/
+        $reservation->setService(  $titreService);
+
+     /* dump($elem);*/
         $form = $this->createForm(ReservationType::class,  $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -73,7 +78,7 @@ class ReservationController extends AbstractController
                 );
             $mailer->send($message);
 
-            $this->addFlash('success', 'Votre reservation a ete pris en comte, un email vous a aete envoyer!');
+            $this->addFlash('success', 'Votre reservation a ete pris en comte, un email de comfirmation vous a aete envoyer!');
 
             return $this->redirectToRoute('home');
         }
@@ -81,6 +86,32 @@ class ReservationController extends AbstractController
         return $this->render('reservation/reserver.html.twig', [
 
             'ReservationType' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/prestatair-reservation", name="prestatair.reservation")
+     */
+
+
+    public function services(ReservationRepository$repository,
+        /* objectManager $manager,*/Request $request, PaginatorInterface $paginator,\App\Repository\CategorysRepository $categorysRepository)
+    {
+
+        $allReservation = $repository->findAll();
+        $reservation= $paginator->paginate(
+        // Doctrine Query, not results
+            $allReservation,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            9
+        );
+        /* $Cat = $categorysRepository-> findCatFirstLevel();*/
+
+        return $this->render('prestatair/reservation.html.twig', [
+            'reservation' => $reservation,
+
         ]);
     }
 }

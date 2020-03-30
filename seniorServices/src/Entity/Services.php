@@ -54,11 +54,12 @@ class Services
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorys", inversedBy="service")
      * @var Collection
+     * @ORM\JoinColumn(nullable=false)
      */
     private $categorys;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Reservation", mappedBy="service", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="service",orphanRemoval=true)
      *
      */
     private $reservation;
@@ -83,7 +84,12 @@ class Services
 
     public function __toString()
     {
-        return (string)$this->reservation;
+        try {
+            return (string)$this->getId();
+        } catch ( Exception $e ) {
+            trigger_error($e->getMessage(), E_USER_ERROR);
+        }
+
     }
 
     /* public function __toString() {
@@ -236,9 +242,9 @@ class Services
         return $this->categorys;
     }*/
 
-    public function getCategorys(Doctrine\Common\Collections\Collection $collection)
+    public function getCategorys($collection)
     {
-          $this->categorys = $collection;
+        $this->categorys = $collection;
         return $this ;
 
 
@@ -310,21 +316,19 @@ class Services
     {
         return $this->reservation;
     }
-    public function setReservation()
+    public function setReservation(?Reservation $reservation)
     {
-        return $this->reservation;
+        return $this->reservation =$reservation;
     }
 
     /*public function setReservation(?Reservation $user): strind
     {
         $this->user = $user;
-
         // set (or unset) the owning side of the relation if necessary
         $newService = null === $user ? null : $this;
         if ($user->getService() !== $newService) {
             $user->setService($newService);
         }
-
         return $this;
     }*/
 }

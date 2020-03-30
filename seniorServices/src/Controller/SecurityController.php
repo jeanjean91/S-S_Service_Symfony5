@@ -82,7 +82,7 @@ class SecurityController extends AbstractController
 
 
 
-        return $this->render('prestatair/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('prestatair/dashboard.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**

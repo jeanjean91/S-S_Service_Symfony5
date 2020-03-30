@@ -3,26 +3,13 @@
 {% block title %}Pretations de services{% endblock %}
 
 {% block body %}
-{#<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello #}{#{{ controller_name }}#}{#prestatair! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/TRILLREALDEAL/seniorServices/src/Controller/PrestatairController.php'|file_link(0) }}">src/Controller/PrestatairController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/TRILLREALDEAL/seniorServices/templates/prestatair/index.html.twig'|file_link(0) }}">templates/prestatair/index.html.twig</a></code></li>
-    </ul>
-</div>#}
 
 
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                {#<div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">Simple Table</h4>
@@ -156,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>#}
                 <div class="col-md-12">
                     <div class="card card-plain">
                         <div class="card-header card-header-primary">
@@ -171,37 +158,51 @@
                                         ID
                                     </th>
                                     <th>
-                                        Name
+                                        service
                                     </th>
                                     <th>
-                                        Country
+                                        Region
                                     </th>
                                     <th>
-                                        City
+                                        Ville
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Salary
                                     </th>
                                     <th>
                                         Salary
                                     </th>
                                     </thead>
                                     <tbody>
+
+                                    {%  for reservation in reservation %}
+
                                     <tr>
                                         <td>
-                                            1
+                                            {{ reservation.id}}
                                         </td>
                                         <td>
-                                            Dakota Rice
+                                            {{ reservation.service}}
                                         </td>
                                         <td>
-                                            Niger
+                                            {{ reservation.region}}
                                         </td>
                                         <td>
-                                            Oud-Turnhout
+                                            {{ reservation.ville}}
                                         </td>
                                         <td>
-                                            $36,738
+                                            {{ reservation.date}}
                                         </td>
+                                        <td>
+                                            {{ reservation.prix}}
+                                        </td>
+                                        <td> <a href="{#{{path("#",{'id':user.id})}}#}" ><i class="far fa-edit"></i></a></td>
                                     </tr>
-                                    <tr>
+                                    {% endfor %}
+                                    {#<tr>
                                         <td>
                                             2
                                         </td>
@@ -285,7 +286,7 @@
                                         <td>
                                             $78,615
                                         </td>
-                                    </tr>
+                                    </tr>#}
                                     </tbody>
                                 </table>
                             </div>

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PrestataireRepository")
  */
-class Prestataire extends User
+class Prestataire /*extends User*/
 {
     /**
      * @ORM\Id()
@@ -48,7 +48,7 @@ class Prestataire extends User
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="prestataire", cascade={"persist", "remove"})
-     *
+     *  @ORM\JoinColumn(nullable=false)
      */
     private $user;
     /**
@@ -81,10 +81,10 @@ class Prestataire extends User
      */
     private $specialite;
 
-    public function __construct()
+    /*public function __construct()
     {
         $this->user = new ArrayCollection();
-    }
+    }*/
     public function getId(): ?int
     {
         return $this->id;
@@ -103,11 +103,11 @@ class Prestataire extends User
         return $this->user;
     }
 
-    public function setUser(?string $user): User
+    public function setUser(?User $user):?string
     {
-        $this->user = $user;
+       return $this->user= $user;
 
-        return $this;
+
     }
 
 
@@ -142,7 +142,7 @@ class Prestataire extends User
         return $this->tel;
     }
 
-    public function setTel(?string $tel): User
+    public function setTel( $tel):?self
     {
         $this->tel = $tel;
 
@@ -154,7 +154,7 @@ class Prestataire extends User
         return $this->adresse;
     }
 
-    public function setAdresse(?string $adresse): User
+    public function setAdresse( $adresse): self
     {
         $this->adresse = $adresse;
 

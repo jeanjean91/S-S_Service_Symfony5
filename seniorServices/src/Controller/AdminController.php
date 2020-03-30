@@ -10,6 +10,7 @@ use App\Form\ServiceFormType;
 use App\Form\UserformType;
 use App\Repository\CategorysRepository;
 use App\Repository\PrestataireRepository;
+use App\Repository\ReservationRepository;
 use App\Repository\ServicesRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,6 +25,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
+
+
 
     public function index(UserRepository $repository)
     {
@@ -256,5 +259,19 @@ class AdminController extends AbstractController
             'CategoryFormType' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/admin-reservation", name="admin.reservation")
+     */
+
+    public function reserv(ReservationRepository $repository)
+    {
+
+        $reservation =$repository->findAll();
+        return $this->render('admin/reservation.html.twig', [
+
+            'reservation'=>$reservation
+        ]);
+    }
+
 
 }

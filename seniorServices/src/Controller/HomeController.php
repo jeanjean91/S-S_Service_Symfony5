@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     public function index()
     {
         /*$visitorCount = $this->getVisitorCount();
-        return $this->render('index.html.twig', [
+        return $this->render('reservation.html.twig', [
             'pusherKey' => $this->getParameter('pusherKey'),
             'pusherCluster' => $this->getParameter('pusherCluster'),
             'visitorCount' => $visitorCount,
@@ -78,7 +78,10 @@ class HomeController extends AbstractController
     //afficher une categorie
 
     /**
-     * @Route("/base-{idCat}", name="baseParCat")
+     * @Route("/base-{idCat}.{format}", name="baseParCat",requirements={
+     *
+     *   "format" = "html|xml"
+     * }, defaults={"format" = "html"}))))
      */
 
     public function category(ServicesRepository $repository, \App\Repository\CategorysRepository $categoriesRepository, ObjectManager $manager, Request $request, PaginatorInterface $paginator, $idCat)

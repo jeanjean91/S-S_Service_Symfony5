@@ -57,7 +57,7 @@ class ClientController extends AbstractController
         }
         $session->set('panier', $panier);
         /*dump($panier);*/
-        return $this->render('panier/index.html.twig', [
+        return $this->render('panier/reservation.html.twig', [
             'details' => $details,
         ]);
     }

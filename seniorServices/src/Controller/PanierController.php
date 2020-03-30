@@ -73,7 +73,7 @@ class PanierController extends AbstractController
      */
     public function vue(){
 
-        return $this->render("panier/index.html.twig");
+        return $this->render("panier/reservation.html.twig");
 
     }
     /**

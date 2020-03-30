@@ -17,15 +17,14 @@ class Reservation
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Services", inversedBy="reservation", cascade={"persist", "remove"})
-     *
-     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Services", inversedBy="reservation")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $service;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
-     *
+     * @ORM\JoinColumn(nullable=false)
      */
     private $User;
 
@@ -53,20 +52,28 @@ class Reservation
     {
         return $this->id;
     }
-    public function __toString() {
+   public function __toString() {
+
+       try {
+           return $this->service;
+       } catch ( Exception $e ) {
+           trigger_error($e->getMessage(), E_USER_ERROR);
+       }
         return $this->service;
     }
 
-    public function getService(): ?Services
+    public function getService()
     {
-        return $this->service;
+        return  $this->service;
+
+
     }
 
-    public function setService(): self
+    public function setService():?Services
     {
-        $this->service ;
+        return  $this->service;
 
-        return $this;
+        ;
     }
 
     public function getUser(): ?User

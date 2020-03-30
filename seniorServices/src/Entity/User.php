@@ -81,6 +81,9 @@ class User implements UserInterface
      */
     private $image;
 
+
+    /*private $prestataire;*/
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
