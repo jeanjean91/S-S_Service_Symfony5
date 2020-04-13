@@ -59,7 +59,7 @@ class Services
     private $categorys;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="service",orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="service",orphanRemoval=true)
      *
      */
     private $reservation;

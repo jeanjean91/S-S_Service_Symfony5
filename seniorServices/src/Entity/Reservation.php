@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
@@ -17,7 +18,7 @@ class Reservation
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Services", inversedBy="reservation")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Services", inversedBy="reservation")
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;
@@ -29,7 +30,9 @@ class Reservation
     private $User;
 
     /**
-     * @ORM\Column(type="date")
+     * 
+     * @ORM\Column(type="datetime")
+     * 
      */
     private $Date;
 
@@ -46,6 +49,7 @@ class Reservation
     /**
      * @ORM\Column(type="string", length=255)
      */
+
     private $tel;
 
     public function getId(): ?int
@@ -61,7 +65,9 @@ class Reservation
        }
         return $this->service;
     }
+    
 
+   
     public function getService()
     {
         return  $this->service;
@@ -69,13 +75,13 @@ class Reservation
 
     }
 
-    public function setService():?Services
+     public function setService(?Services $service): self
     {
-        return  $this->service;
+        $this->service = $service;
 
-        ;
+        return $this;
     }
-
+    
     public function getUser(): ?User
     {
         return $this->User;

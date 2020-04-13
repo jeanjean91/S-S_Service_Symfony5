@@ -132,18 +132,25 @@ class RegistrationController extends AbstractController
      */
 
 
-    public function  new($id, UserRepository $repository,Request $request, ObjectManager $manager)
+    public function  new($id,UserRepository $repository, Request $request, ObjectManager $manager)
     {
 
-        $appUser =  $this->getUser();
+        $user = $repository->findOneBy(['id' => $id]);
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $session = $request->getSession();
 
+        
 
-/*
-        $id1= $this->getUser();*/
+       
+      
+       
 
         $prestataire = new Prestataire();
+        /* $appUser =  $this->getUser(); */
+           dump($user ); 
 
-        $prestataire->setUser($appUser);
+
+        $prestataire->setUser($user);
 
         $form = $this->createForm(PrestataireFormtype::class,  $prestataire);
         $form->handleRequest($request);

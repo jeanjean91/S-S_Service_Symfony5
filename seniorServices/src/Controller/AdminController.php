@@ -28,13 +28,15 @@ class AdminController extends AbstractController
 
 
 
-    public function index(UserRepository $repository)
+    public function index(UserRepository $repository,ReservationRepository $repo)
     {
         /* $total ='user.id';*/
         $user =$repository->findByExampleField();
+        $reservation =$repo->findByBook ();
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
-            'user'=>$user
+            'user'=>$user,
+            'reservation'=>$reservation 
         ]);
     }
 
@@ -263,13 +265,22 @@ class AdminController extends AbstractController
      * @Route("/admin-reservation", name="admin.reservation")
      */
 
-    public function reserv(ReservationRepository $repository)
+    public function reserv(ReservationRepository $repository,Request $request,PaginatorInterface $paginator)
     {
 
         $reservation =$repository->findAll();
+
+        $reserver = $paginator->paginate(
+        // Doctrine Query, not results
+            $reservation,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            15
+        );
         return $this->render('admin/reservation.html.twig', [
 
-            'reservation'=>$reservation
+            'reservation'=>$reserver
         ]);
     }
 

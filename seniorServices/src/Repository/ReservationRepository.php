@@ -19,6 +19,22 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+
+     public function findByBook ()
+    {
+        $entityManager = $this ->getEntityManager();
+
+        $connect= $entityManager ->createQuery(    " 
+            SELECT  distinct COUNT( e.id) as total
+             FROM App\Entity\Reservation e
+             WHERE e.id = e.id
+             ") ;
+
+
+
+
+        return $connect ->execute();
+    }
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
     //  */

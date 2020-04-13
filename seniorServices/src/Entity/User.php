@@ -7,9 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -33,11 +34,14 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min=6)
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=2)
+     * @Assert\NotBlank()
      */
     private $user;
 
@@ -48,11 +52,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=2)
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=2)
      */
     private $prenom;
 
@@ -63,11 +69,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=15)
      */
     private $secuSocial;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=10)
      */
     private $tel;
 
@@ -81,6 +89,18 @@ class User implements UserInterface
      */
     private $image;
 
+    /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $resetToken;
+
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     * @var \DateTime|null
+     */
+    private $updated_at;
+   
 
     /*private $prestataire;*/
 
@@ -310,5 +330,38 @@ class User implements UserInterface
         $this->image = $image;
 
         return $this;
+    }
+         /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updated_at;
+    }
+    
+    public function setUpdatedAt(\DateTime $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+    /**
+     * @ORM\PreUpdate
+     */
+      public function updateDate()
+    {
+    $this->setUpdatedAt(new \DateTime());
     }
 }

@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
 class ReservationController extends AbstractController
 {
     /**
@@ -23,24 +23,24 @@ class ReservationController extends AbstractController
      */
     public function  new($id, ServicesRepository $repository ,Request $request, ObjectManager $manager,\Swift_Mailer $mailer)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $session = $request->getSession();
         $service = $repository->findOneBy(['id' => $id]);
-
-        $titreService = $service->getTitre();
-       /* dump( $titreService);*/
-
+        dump( $service); 
+        $panier = $session->get('panier');
         $user = $this ->getUser();
         $reservation = new Reservation();
 
-
         $reservation->setUser($user);
-        $reservation->setService(  $titreService);
+        $reservation->setService($service);
+          
 
-     /* dump($elem);*/
+        
         $form = $this->createForm(ReservationType::class,  $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+           
 
 
         if ($request->isMethod('POST')) {
@@ -48,7 +48,7 @@ class ReservationController extends AbstractController
             $email = $user->getEmail();
 
             if ($email === null) {
-                $this->addFlash('danger', 'Connectez ous !');
+                $this->addFlash('danger', 'Vous devez etre connecter pour faire une reservation!! ');
                 return $this->redirectToRoute('app_login');
             }
 
@@ -105,7 +105,7 @@ class ReservationController extends AbstractController
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            9
+            20
         );
         /* $Cat = $categorysRepository-> findCatFirstLevel();*/
 

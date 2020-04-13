@@ -45,11 +45,13 @@ class Commande
      */
     private $services;
 
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
         $this->service = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->date = new \Datetime();
     }
 
     public function getId(): ?int

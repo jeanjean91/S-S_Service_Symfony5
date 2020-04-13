@@ -42,7 +42,7 @@ class Categorys
     private $categorys;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Categorys", mappedBy="categorys")
+     * @ORM\OneToMany(targetEntity="App\Entity\Categorys", mappedBy="sousCategorys")
      */
     private $sousSousCategory;
 

@@ -98,18 +98,20 @@ class Prestataire /*extends User*/
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-    public function getUser(): ?string
+    public function getUser()
     {
         return $this->user;
     }
 
-    public function setUser(?User $user):?string
+    public function setUser(?User $user):?self
     {
-       return $this->user= $user;
+        $this->user= $user;
 
+        return $this;
 
     }
 
+     
 
 
     public function getSociete(): ?string
